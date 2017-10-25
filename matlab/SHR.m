@@ -21,6 +21,8 @@ for iparticipant = filenames
     % get data
     load(sprintf('%s/%s', conf.path2data, iparticipant{:}));
     
-    alias.model = S2M_rbdl('new',path2.DirModels)
+    % open model
+    model = shr.preprocessing.get_model(conf.path2model, iparticipant{:})
+    
 end
 

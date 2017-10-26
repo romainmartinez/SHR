@@ -2,6 +2,8 @@ classdef scphmr
     %SCPHMR compute scapulohumeral rhythm
     
     properties
+        rhythm            % scapulohumeral rhythm
+        associated_bodies % bodies associated with the sh rhythm
     end
     
     properties (Access = private)
@@ -10,10 +12,8 @@ classdef scphmr
         filter     % cut-off frequency of the low-pass filter
         bodies     % bodies ID
     end
-    
     %------------------------------------%
     methods
-        
         function self = scphmr(model, Q, varargin)
             % parse input
             p = inputParser;
@@ -30,18 +30,22 @@ classdef scphmr
             
             self.compute_scphmr();
         end % constructor
-        
         %------------------------------------%
+        
         function compute_scphmr(self)
             % low pass filter (if filter ~= 0)
             if self.filter
-                self.Q = self.lowpass(self.filter);
+                self.Q = self.lowpass(self.Q, self.filter);
             end
             
             body = {'normal','gh', 'sc', 'ac'};
             TH = cellfun(@(x) self.get_ThoracoHumeralElevation(x), body,...
                 'UniformOutput', false);
             TH = [TH{:}];
+            
+            rhythm = cellfun(@(x) self.get_ScapuloHumeralRhythm(TH, body, x), body,...
+                'UniformOutput', false);
+            self.rhythm = [rhythm{:}];
         end
         
         function TH_elevation = get_ThoracoHumeralElevation(self, body)
@@ -60,12 +64,26 @@ classdef scphmr
             TH_elevation = squeeze(TH_angle(2, :, :));
         end
         
-        function out = lowpass(self, fcut)
-            Q_filtered = shr.processing.lpfilter(self.Q', fcut, 100);
+    end % methods
+    
+    %------------------------------------%
+    
+    methods(Static)
+        function out = lowpass(d, fcut)
+            Q_filtered = shr.processing.lpfilter(d', fcut, 100);
             out = Q_filtered';
         end
         
-    end
+        function rhythm = get_ScapuloHumeralRhythm(TH, body_list, body)
+            if ~strcmp(body, 'normal')
+                a = TH(:, contains(body_list, 'normal'));
+                b = TH(:, contains(body_list, body));
+                rhythm = (a - b)./a*100;
+            else
+                rhythm = [];
+            end
+        end
+    end % static methods
     
 end
 

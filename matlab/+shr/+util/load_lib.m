@@ -1,8 +1,8 @@
-function load_lib
+function load_lib(eDrive)
 % S2M library
 if ~contains(path, 'S2M_Lib')
     try
-        run('/media/romain/E/Librairies/S2M_Lib/S2MLibPicker.m')
+        run(sprintf('%sLibrairies/S2M_Lib/S2MLibPicker.m', eDrive))
     catch
         warning('cannot load S2M library');
     end

@@ -26,23 +26,13 @@ for iparticipant = filenames
     % open model
     model = shr.util.get_model(conf, iparticipant{:});
     
-    %_____________________
-    
-%     result = arrayfun(@(x) shr.processing.scphmr(x.Qdata.Q2),...
-%         temp, 'uniformoutput', false);
-    obj = shr.processing.scphmr(model, temp(1).Qdata.Q2, 'filter', 15);
-        
-    % low-pass filter
-    
-    % get tags
-    
-    % set Q to zero
-    
-    % get new tags
+    % compute scapulohumeral rhythm
+    result = arrayfun(@(x) shr.processing.scphmr(model, x.Qdata.Q2, conf.bodies),...
+        temp, 'uniformoutput', false);
     
     S2M_rbdl('delete', model)
-    %_____________________
-    
+
     % cut trial
-    
+    % interpolate
+    % export matrix
 end

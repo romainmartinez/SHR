@@ -10,3 +10,5 @@ end
 conf.path2data = sprintf('%sProjet_IRSST_LeverCaisse/ElaboratedData/matrices/cinematique/', conf.eDrive);
 conf.path2rootmodel = sprintf('%sData/Shoulder/Lib/', conf.fDrive);
 conf.modelnumber = 2;
+
+conf.bodies = shr.util.get_body_markers(conf.modelnumber);

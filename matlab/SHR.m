@@ -18,11 +18,28 @@ filenames = shr.util.get_filename(conf.path2data);
 
 for iparticipant = filenames
     fprintf('\t%s\n', iparticipant{:})
+    
     % get data
-    load(sprintf('%s/%s', conf.path2data, iparticipant{:}));
+    load(sprintf('%s/%s.mat', conf.path2data, iparticipant{:}));
     
     % open model
-    model = shr.preprocessing.get_model(conf.path2model, iparticipant{:})
+    model = shr.preprocessing.get_model(conf, iparticipant{:});
+    
+    %_____________________
+    
+    % get Q
+    
+    % low-pass filter
+    
+    % get tags
+    
+    % set Q to zero
+    
+    % get new tags
+    
+%     S2M_rbdl('delete', alias.model)
+    %_____________________
+    
+    % cut trial
     
 end
-

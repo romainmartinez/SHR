@@ -27,6 +27,12 @@ for iparticipant = filenames
     
     % open model
     model = shr.util.get_model(conf, iparticipant{:});
+    
+    if conf.anatomical_correction
+        zero = shr.processing.anatomical_correction(model, conf, iparticipant);
+    else
+        zero = zeros(28, 1);
+    end
 
     for itrial = 1 : length(temp)
         if temp(itrial).hauteur == conf.height && temp(itrial).poids ~= 18
@@ -34,14 +40,16 @@ for iparticipant = filenames
             fprintf('\t\t%s\n', temp(itrial).trialname)
             
             % create scphmr object
-            obj = shr.processing.scphmr(model, temp(itrial).Qdata.Q2, conf.bodies);
+            obj = shr.processing.scphmr(model, temp(itrial).Qdata.Q2, conf.bodies, 'zero', zero, 'filter', 15);
             % get scapulohumeral rhythm
-            rhythm = obj.compute_scphmr();
+            [rhythm, TH] = obj.compute_scphmr();
             % cut trial
             cutted_rhythm = rhythm(uint16(temp(itrial).start):uint16(temp(itrial).end));
+            cutted_TH = TH(uint16(temp(itrial).start):uint16(temp(itrial).end));
             
             % interpolate
             data.y(i, :) = shr.util.ScaleTime(cutted_rhythm, 1, length(cutted_rhythm), conf.interpolateover);
+            data.TH(i, :) = shr.util.ScaleTime(cutted_TH, 1, length(cutted_TH), conf.interpolateover);
             data.weight(i) = temp(itrial).poids;
             data.participants(i) = p;
             switch temp(itrial).sexe

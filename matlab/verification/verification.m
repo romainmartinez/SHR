@@ -8,8 +8,8 @@
 
 clear variables; clc; close all
 
-load('verif.mat')
-load('data.mat')
+load('./data/verif.mat')
+load('./data/data.mat')
 
 idx = verif_gui(data.y');
 data.TH = data.TH*180/pi;

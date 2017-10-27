@@ -17,6 +17,7 @@ shr.util.load_lib(conf.eDrive)
 % get data filenames
 filenames = shr.util.get_filename(conf.path2data);
 
+idx = 0;
 for iparticipant = filenames
     fprintf('\t%s\n', iparticipant{:})
     
@@ -26,12 +27,23 @@ for iparticipant = filenames
     % open model
     model = shr.util.get_model(conf, iparticipant{:});
     
-    % compute scapulohumeral rhythm
-    result = arrayfun(@(x) shr.processing.scphmr(model, x.Qdata.Q2, conf.bodies),...
-        temp, 'uniformoutput', false);
+    for i = 1 : length(temp)
+        if temp(i).hauteur == 2
+            idx = idx + 1;
+            fprintf('\t\t%s\n', temp(i).trialname)
+            
+            % create scphmr object
+            obj = shr.processing.scphmr(model, temp(i).Qdata.Q2, conf.bodies);
+            % get scapulohumeral rhythm
+            rhythm = obj.compute_scphmr();
+            
+            % interpolate
+            y(idx, :) = shr.util.ScaleTime(rhythm, 1, length(rhythm), conf.interpolateover);
+        end
+    end
     
     S2M_rbdl('delete', model)
-
+    
     % cut trial
     % interpolate
     % export matrix

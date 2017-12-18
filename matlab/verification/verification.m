@@ -11,7 +11,13 @@ clear variables; clc; close all
 load('./data/verif.mat')
 load('./data/data.mat')
 
+keep = 1:100;
+data.y = data.y(:, keep);
+data.TH = data.TH(:, keep);
+
 idx = verif_gui(data.y');
+data.y(idx, :) = nan;
+fprintf('%d NaNs present in data\n', sum(isnan(data.y(:, 1))))
 data.TH = data.TH*180/pi;
 
 subplot(211)
@@ -22,11 +28,11 @@ tightfig;
 
 %_____
 figure
-time = 1:100;
-g = gramm('x',time,'y',data.y,'color',data.sex);
-g.facet_grid(data.weight, [],'scale','fixed','space','free');
-g.stat_summary('type','std','setylim', true);
-g.axe_property('TickDir','out');
+g = gramm('x', keep, 'y', data.y,...
+    'color',data.sex);
+g.facet_grid(data.weight, [], 'scale', 'fixed', 'space', 'free');
+g.stat_summary('type', 'std', 'setylim', true);
+g.axe_property('TickDir', 'out');
 g.draw();
 
 %______

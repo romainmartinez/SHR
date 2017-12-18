@@ -13,6 +13,8 @@ conf.path2rootmodel = sprintf('%sData/Shoulder/Lib/', conf.fDrive);
 conf.modelnumber = 2;
 conf.interpolateover = 100;
 conf.height = 2;
-conf.anatomical_correction = true;
+conf.anatomical_correction = false;
+conf.filter = 10;
+conf.iteration = true;
 
 conf.bodies = shr.util.get_body_markers(conf.modelnumber);

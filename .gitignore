@@ -103,3 +103,5 @@ ENV/
 *.mat
 
 matlab/verification/@gramm/
+
+matlab/verification/verif\.csv

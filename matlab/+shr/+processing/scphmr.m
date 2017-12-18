@@ -10,8 +10,9 @@ classdef scphmr
         model      % s2m model
         filter     % cut-off frequency of the low-pass filter
         bodies     % bodies ID
+        zero       % anatomical zero
+        iteration  % iterative algo or not
         q_modified
-        zero
     end
     %------------------------------------%
     methods
@@ -23,6 +24,7 @@ classdef scphmr
             p.addRequired('bodies', @isstruct);
             p.addOptional('filter', 0, @isnumeric);
             p.addOptional('zero', 0, @isnumeric);
+            p.addOptional('iteration', true, @islogical);
             p.parse(model, Q, bodies, varargin{:})
             
             self.model = p.Results.model;
@@ -30,6 +32,8 @@ classdef scphmr
             self.bodies = p.Results.bodies;
             self.filter = p.Results.filter;
             self.zero = p.Results.zero;
+            self.iteration = p.Results.iteration;
+            
             self.q_modified = self.Q;
         end % constructor
         %------------------------------------%
@@ -43,22 +47,40 @@ classdef scphmr
             body = {'normal','gh', 'ac', 'sc'};
             TH = zeros(length(self.Q), 4);
             for i = 1:length(body)
+                if ~self.iteration
+                    self.q_modified = self.Q;
+                end
                 [TH(:,i), self.q_modified] = self.get_ThoracoHumeralElevation(body{i},...
                     self.q_modified);
-                
             end
             
-            rhythm = (TH(:,1)-TH(:,2))./TH(:,2);
+            if ~self.iteration
+                contrib_gh = TH(:, 1) - TH(:, 2);
+                contrib_st = (TH(:, 1) - TH(:, 3)) + (TH(:, 1) - TH(:, 4));
+                rhythm = contrib_gh ./ contrib_st;
+            else
+                rhythm = TH(:,1) ./ TH(:,2);
+            end
+            
+            % TH(:, 1): thoraco-humeral contribution
+            % TH(:, 2): ST contribution
+            
+            %             rhythm = TH(:,2)./(TH(:,1)-TH(:,2));
+            
+            
+            %             rhythm = TH(:,2) ./ (TH(:,3) + TH(:,4));
+            
             % nan if < 3 degrees
-            rhythm(TH(:,2)<3/180*pi) = nan;
+            rhythm(TH(:,2) < 10/180*pi) = nan;
             outTH = TH(:, 1);
         end
         
         function [TH_elevation, q_modified] = get_ThoracoHumeralElevation(self, body, q_modified)
             if ~strcmp(body, 'normal')
-                % reset joint coordinates
+                % reset joint coordinates (if body == gh, ac or sc)
                 q_modified(self.bodies.(body),:) = repmat(self.zero(self.bodies.(body)), 1, length(q_modified));
             else
+                % 'normal' TH
                 q_modified = self.Q;
             end
             % get global JCS

@@ -20,7 +20,7 @@ filenames = shr.util.get_filename(conf.path2data);
 i = 0; p = 0;
 for iparticipant = filenames
     p = p + 1;
-    fprintf('\t%s\n', iparticipant{:})
+    fprintf('\t%s (%d/%d)\n', iparticipant{:}, p, length(filenames))
     
     % get data
     load(sprintf('%s/%s.mat', conf.path2data, iparticipant{:}));
@@ -40,7 +40,8 @@ for iparticipant = filenames
             fprintf('\t\t%s\n', temp(itrial).trialname)
             
             % create scphmr object
-            obj = shr.processing.scphmr(model, temp(itrial).Qdata.Q2, conf.bodies, 'zero', zero, 'filter', 15);
+            obj = shr.processing.scphmr(model, temp(itrial).Qdata.Q2, conf.bodies,...
+                'zero', zero, 'filter', conf.filter, 'iteration', conf.iteration);
             % get scapulohumeral rhythm
             [rhythm, TH] = obj.compute_scphmr();
             % cut trial
@@ -64,4 +65,6 @@ for iparticipant = filenames
         end
     end
     S2M_rbdl('delete', model)
+    save('./verification/data/data.mat', 'data')
+    save('./verification/data/verif.mat', 'verif')
 end

@@ -8,7 +8,7 @@
 
 clear variables; clc; close all
 
-load('./data/verif.mat')
+% load('./data/verif.mat')
 load('./data/data.mat')
 
 keep = 1:100;

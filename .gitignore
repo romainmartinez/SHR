@@ -107,3 +107,7 @@ matlab/verification/@gramm/
 matlab/verification/verif\.csv
 
 share/fig/
+
+matlab/verification/data/data\.mat
+
+matlab/verification/data/verif\.mat

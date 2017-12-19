@@ -111,3 +111,5 @@ share/fig/
 matlab/verification/data/data\.mat
 
 matlab/verification/data/verif\.mat
+
+*.bib

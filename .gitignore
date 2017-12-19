@@ -105,3 +105,5 @@ ENV/
 matlab/verification/@gramm/
 
 matlab/verification/verif\.csv
+
+share/fig/

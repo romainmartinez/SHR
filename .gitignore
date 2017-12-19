@@ -100,7 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
-*.mat
+
 
 matlab/verification/@gramm/
 

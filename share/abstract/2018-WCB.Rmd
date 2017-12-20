@@ -8,8 +8,8 @@ bibliography: lib.bib
 ---
 
 # Introduction
-The occurrence of work-related upper limb injuries has been associated with gender [@treaster_gender_2004].
-Sex differences in motor behavior have been identified and may contribute to the increased risk of injuries among women.
+The occurrence of work-related upper limb injuries has been associated with sex [@treaster_gender_2004].
+While sex differences in motor behavior have been identified [@cote_critical_2012], knowledge is limited for dynamic shoulder movements.
 The interaction of the shoulder joint during arm elevation is commonly assessed using the scapulo-humeral rhythm (SHR).
 This study investigated sex differences in the SHR during a lifting task.
 
@@ -18,12 +18,12 @@ In total, 25 women and 25 men took part in this study.
 The experimental task consisted of moving one box between two adjustable shelves located at hip and eye levels.
 Different box masses (6 and 12 kg) were used to adjust for sex-related differences in maximal force.
 
-Kinematics of the upper arm were recorded and the SHR was computed dynamically using the method described in @robert-lachaine_elucidating_2015, which includes all rotations of each shoulder joints.
-Men's and women's SHR were compared using statistical parametric mapping (non-parametric 2-way ANOVA: sex × height [repeated measures]).
+Kinematics of the upper arm were recorded and the SHR was computed dynamically using a 3D approach [@robert-lachaine_elucidating_2015], which includes all rotations of each shoulder joints.
+Men's and women's SHR were compared using statistical non-parametric mapping (non-parametric 2-way ANOVA: sex × height [repeated measures]).
 
 # Results
-A significant main effect of sex (46 to 89% of the trial, p < 0.05)  on the SHR (Fig. 1) was found , highlighting a systematically higher SHR in men than women in the last half of the trial.
-A significant main effect of mass (25 to 27% and 41 to 55% of the trial, p = 0.025 and p = 0.004, respectively) on the SHR (Fig. 1) shows a higher SHR in both men and women at 6 kg compared to 12 kg during the box elevation.
+A significant main effect of sex (46 to 89% of the trial, p<0.05)  on the SHR (Fig. 1) was found, highlighting a systematically higher SHR in men than women in the last half of the trial.
+A significant main effect of mass (between 41 and 55% of the trial, p=0.025 and p=0.004, respectively) on the SHR (Fig. 1) shows a higher SHR in both men and women at 6 kg compared to 12 kg during the box elevation.
 There was no interaction sex-mass.
 
 Fig. 1: Scapulo-humeral rhythm (mean and standard error) and main effects found by the ANOVA for men and women at 6 or 12 kg.
@@ -33,9 +33,9 @@ Each segment on the lower panel represents a supra-threshold clusters over the n
 # Discussion
 Our results highlight a sex-specific SHR during a lifting task.
 We showed that the SHR is higher in men than women during the last half of the trial.
-This result means that men are more likely to use the glenohumeral joint and/or less the sterno-thoracic joint to lift the arm at eye level at either 6 or 12 kg.
+This result means that men are more likely to use the glenohumeral joint and/or less the scapulo-thoracic joints to lift a box at eye level at either 6 or 12 kg.
 We can hypothesize that men do not require as much effort as women to lift the box, in accordance with biological differences.
-Thus, when efforts are closer to the maximal capacity, the glenohumeral joint cannot contribute as much and the arm elevation relies on the sterno-thoracic joint.
+Thus, when efforts are closer to the maximal capacity, the glenohumeral joint cannot contribute as much and the arm elevation relies on the scapulo-thoracic joints.
 This is confirmed by the mass main effect which shows a higher SHR at 6 compared to 12 kg.
 
 # References

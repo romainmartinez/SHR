@@ -1,0 +1,4 @@
+spm1d
+scipy
+matplotlib
+seaborn
